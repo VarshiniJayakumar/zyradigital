@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 
-const signToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET || 'zyradigital_secret_key', {
+const signToken = (id, role) =>
+  jwt.sign({ id, role }, process.env.JWT_SECRET || 'zyradigital_secret_key', {
     expiresIn: '7d',
   });
 
@@ -34,7 +34,7 @@ router.post(
         password: req.body.password,
       });
 
-      const token = signToken(user._id);
+      const token = signToken(user._id, user.role);
       res.status(201).json({
         token,
         user: { id: user._id, name: user.name, email: user.email, role: user.role },
@@ -62,7 +62,7 @@ router.post(
       if (!user || !(await user.matchPassword(req.body.password)))
         return res.status(401).json({ message: 'Invalid email or password.' });
 
-      const token = signToken(user._id);
+      const token = signToken(user._id, user.role);
       res.json({
         token,
         user: { id: user._id, name: user.name, email: user.email, role: user.role },

@@ -11,17 +11,16 @@ import Pricing from './components/Pricing';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
+import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
-  const [authModal, setAuthModal] = useState(null); // null | 'signup' | 'login'
+  const [authModal, setAuthModal] = useState(null);
   const [user, setUser] = useState(() => {
     try { return JSON.parse(localStorage.getItem('zd_user')); } catch { return null; }
   });
 
   const handleAuthClose = (result) => {
-    if (result && typeof result === 'object') {
-      setUser(result);
-    }
+    if (result && typeof result === 'object') setUser(result);
     setAuthModal(null);
   };
 
@@ -30,6 +29,11 @@ export default function App() {
     localStorage.removeItem('zd_user');
     setUser(null);
   };
+
+  // Show admin dashboard for admin users
+  if (user?.role === 'admin') {
+    return <AdminDashboard onLogout={handleLogout} />;
+  }
 
   return (
     <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
@@ -49,12 +53,7 @@ export default function App() {
       <Pricing onEnroll={() => setAuthModal('signup')} />
       <CTA onEnroll={() => setAuthModal('signup')} />
       <Footer />
-      {authModal && (
-        <AuthModal
-          defaultTab={authModal}
-          onClose={handleAuthClose}
-        />
-      )}
+      {authModal && <AuthModal defaultTab={authModal} onClose={handleAuthClose} />}
     </div>
   );
 }
