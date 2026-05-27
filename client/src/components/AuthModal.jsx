@@ -40,7 +40,7 @@ export default function AuthModal({ onClose, defaultTab = 'login' }) {
   const [tab, setTab] = useState(defaultTab);
 
   // Signup
-  const [sf, setSf] = useState({ name: '', email: '', password: '' });
+  const [sf, setSf] = useState({ name: '', email: '', phone: '', password: '' });
   const [se, setSe] = useState({});
   const [ss, setSs] = useState('idle');
   const [sErr, setSErr] = useState('');
@@ -59,6 +59,8 @@ export default function AuthModal({ onClose, defaultTab = 'login' }) {
     if (!sf.name.trim()) e.name = 'Name is required';
     if (!sf.email.trim()) e.email = 'Email is required';
     else if (!/^\S+@\S+\.\S+$/.test(sf.email)) e.email = 'Enter a valid email';
+    if (!sf.phone.trim()) e.phone = 'Phone is required';
+    else if (!/^\d{7,15}$/.test(sf.phone)) e.phone = 'Must be 7–15 digits';
     if (!sf.password) e.password = 'Password is required';
     else {
       const failed = pwRules.filter(r => !r.test(sf.password));
@@ -77,7 +79,7 @@ export default function AuthModal({ onClose, defaultTab = 'login' }) {
     if (BASE) {
       try {
         const res = await axios.post(`${BASE}/api/auth/register`, {
-          name: sf.name, email: sf.email, password: sf.password,
+          name: sf.name, email: sf.email, phone: sf.phone, password: sf.password,
         }, { timeout: 10000 });
         localStorage.setItem('zd_token', res.data.token);
         localStorage.setItem('zd_user', JSON.stringify(res.data.user));
@@ -233,6 +235,12 @@ export default function AuthModal({ onClose, defaultTab = 'login' }) {
                     <input type="email" value={sf.email} placeholder="you@example.com"
                       onChange={e => setSf({ ...sf, email: e.target.value })} className={ic(se.email)} />
                     {se.email && <p className="text-red-500 text-xs mt-1">{se.email}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Phone Number</label>
+                    <input type="tel" value={sf.phone} placeholder="9876543210 (WhatsApp)"
+                      onChange={e => setSf({ ...sf, phone: e.target.value })} className={ic(se.phone)} />
+                    {se.phone && <p className="text-red-500 text-xs mt-1">{se.phone}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
