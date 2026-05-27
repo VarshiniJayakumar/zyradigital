@@ -8,7 +8,7 @@ const links = [
   { label: 'Pricing',    href: '#pricing'     },
 ];
 
-export default function Navbar({ onEnroll }) {
+export default function Navbar({ onEnroll, onLogin, onLogout, user }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -41,14 +41,26 @@ export default function Navbar({ onEnroll }) {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <button onClick={onEnroll}
-            className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors px-4 py-2">
-            Log in
-          </button>
-          <button onClick={onEnroll}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-sm">
-            Enroll Now →
-          </button>
+          {user ? (
+            <>
+              <span className="text-sm text-slate-600 font-medium">👋 {user.name.split(' ')[0]}</span>
+              <button onClick={onLogout}
+                className="text-sm font-semibold text-slate-500 hover:text-red-500 transition-colors px-4 py-2">
+                Log out
+              </button>
+            </>
+          ) : (
+            <>
+              <button onClick={onLogin}
+                className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors px-4 py-2">
+                Log in
+              </button>
+              <button onClick={onEnroll}
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-sm">
+                Enroll Now →
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile hamburger */}
@@ -68,6 +80,10 @@ export default function Navbar({ onEnroll }) {
               {l.label}
             </button>
           ))}
+          <button onClick={() => { setOpen(false); onLogin(); }}
+            className="text-blue-600 text-sm font-semibold text-left py-1.5">
+            Log in
+          </button>
           <button onClick={() => { setOpen(false); onEnroll(); }}
             className="bg-blue-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg mt-2">
             Enroll Now →

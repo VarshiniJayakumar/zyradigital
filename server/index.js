@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const enrollmentRoutes = require('./routes/enrollment');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/enrollment', enrollmentRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'ZyraDigital API is running' });
