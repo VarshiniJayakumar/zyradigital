@@ -25,7 +25,8 @@ export default function EnrollModal({ onClose }) {
     setErrors({});
     setStatus('loading');
     try {
-      await axios.post('http://localhost:5000/api/enrollment', form);
+      const base = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${base}/api/enrollment`, form);
       setStatus('success');
     } catch (err) {
       setStatus('error');
