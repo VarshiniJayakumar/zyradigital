@@ -15,7 +15,7 @@ export default function App() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-screen bg-brand-dark text-white overflow-x-hidden">
+    <div className="min-h-screen text-white overflow-x-hidden" style={{ backgroundColor: '#0B1120' }}>
       <Navbar onEnroll={() => setShowModal(true)} />
       <Hero onEnroll={() => setShowModal(true)} />
       <Problem />
