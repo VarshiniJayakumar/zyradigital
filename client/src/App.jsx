@@ -8,6 +8,7 @@ import Features from './components/Features';
 import Outcomes from './components/Outcomes';
 import Mentor from './components/Mentor';
 import Pricing from './components/Pricing';
+import EnrollSection from './components/EnrollSection';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
@@ -30,7 +31,6 @@ export default function App() {
     setUser(null);
   };
 
-  // Show admin dashboard for admin users
   if (user?.role === 'admin') {
     return <AdminDashboard onLogout={handleLogout} />;
   }
@@ -51,9 +51,12 @@ export default function App() {
       <Outcomes />
       <Mentor />
       <Pricing onEnroll={() => setAuthModal('signup')} />
+      <EnrollSection />
       <CTA onEnroll={() => setAuthModal('signup')} />
       <Footer />
-      {authModal && <AuthModal defaultTab={authModal} onClose={handleAuthClose} />}
+      {authModal !== null && (
+        <AuthModal defaultTab={authModal} onClose={handleAuthClose} />
+      )}
     </div>
   );
 }
