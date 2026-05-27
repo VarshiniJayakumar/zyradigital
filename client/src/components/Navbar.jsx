@@ -27,8 +27,8 @@ export default function Navbar({ onEnroll, onLogin, onLogout, user }) {
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
       scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100' : 'bg-white'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-        <Logo size={38} />
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+        <Logo size={52} />
 
         {/* Desktop */}
         <nav className="hidden md:flex items-center gap-8">

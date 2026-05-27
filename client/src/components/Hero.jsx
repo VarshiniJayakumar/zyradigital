@@ -1,6 +1,6 @@
 export default function Hero({ onEnroll }) {
   return (
-    <section className="pt-16 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white overflow-hidden">
+    <section className="pt-20 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 lg:py-28 flex flex-col lg:flex-row items-center gap-16">
 
         {/* Left */}

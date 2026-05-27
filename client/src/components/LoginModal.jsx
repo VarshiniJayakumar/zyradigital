@@ -23,18 +23,29 @@ export default function LoginModal({ onClose }) {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
     setStatus('loading');
+
+    const base = import.meta.env.VITE_API_URL || '';
+
+    // If no backend URL configured, show helpful message
+    if (!base) {
+      setStatus('error');
+      setServerError('Backend not connected. Please set VITE_API_URL in Netlify environment variables pointing to your Render backend URL.');
+      return;
+    }
+
     try {
-      const base = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const res = await axios.post(`${base}/api/auth/login`, form);
+      const res = await axios.post(`${base}/api/auth/login`, form, { timeout: 10000 });
       localStorage.setItem('zd_token', res.data.token);
       localStorage.setItem('zd_user', JSON.stringify(res.data.user));
       setStatus('success');
-      setTimeout(() => onClose(res.data.user), 1000);
+      setTimeout(() => onClose(res.data.user), 800);
     } catch (err) {
       setStatus('error');
-      setServerError(
-        err.response?.data?.message || 'Invalid email or password.'
-      );
+      if (err.code === 'ECONNABORTED' || err.message === 'Network Error' || !err.response) {
+        setServerError('Cannot reach the server. Make sure your Render backend is running and VITE_API_URL is set correctly in Netlify.');
+      } else {
+        setServerError(err.response?.data?.message || 'Invalid email or password.');
+      }
     }
   };
 
@@ -59,7 +70,7 @@ export default function LoginModal({ onClose }) {
             </div>
           ) : (
             <>
-              <div className="mb-5"><Logo size={32} /></div>
+              <div className="mb-5"><Logo size={44} /></div>
               <h3 className="text-2xl font-extrabold text-slate-900 mb-1">Welcome Back</h3>
               <p className="text-slate-500 text-sm mb-6">Sign in to your ZyraDigital account.</p>
 
@@ -67,7 +78,10 @@ export default function LoginModal({ onClose }) {
                 {/* Email */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1.5">Email Address</label>
-                  <input type="email" value={form.email} placeholder="you@example.com"
+                  <input
+                    type="email"
+                    value={form.email}
+                    placeholder="you@example.com"
                     onChange={e => setForm({ ...form, email: e.target.value })}
                     className={`w-full border rounded-xl px-4 py-3 text-slate-900 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.email ? 'border-red-400 bg-red-50' : 'border-slate-200'}`}
                   />
@@ -77,7 +91,10 @@ export default function LoginModal({ onClose }) {
                 {/* Password */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-                  <input type="password" value={form.password} placeholder="••••••••"
+                  <input
+                    type="password"
+                    value={form.password}
+                    placeholder="••••••••"
                     onChange={e => setForm({ ...form, password: e.target.value })}
                     className={`w-full border rounded-xl px-4 py-3 text-slate-900 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.password ? 'border-red-400 bg-red-50' : 'border-slate-200'}`}
                   />
@@ -85,20 +102,34 @@ export default function LoginModal({ onClose }) {
                 </div>
 
                 {status === 'error' && (
-                  <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3">
-                    {serverError}
+                  <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3 leading-relaxed">
+                    ⚠️ {serverError}
                   </div>
                 )}
 
-                <button type="submit" disabled={status === 'loading'}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl text-base transition-colors disabled:opacity-60 shadow-md shadow-blue-100">
-                  {status === 'loading' ? 'Signing in...' : 'Sign In →'}
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl text-base transition-colors disabled:opacity-60 shadow-md shadow-blue-100"
+                >
+                  {status === 'loading' ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                      </svg>
+                      Signing in...
+                    </span>
+                  ) : 'Sign In →'}
                 </button>
 
                 <p className="text-center text-xs text-slate-400">
                   Don't have an account?{' '}
-                  <button type="button" onClick={() => onClose('enroll')}
-                    className="text-blue-600 font-semibold hover:underline">
+                  <button
+                    type="button"
+                    onClick={() => onClose('enroll')}
+                    className="text-blue-600 font-semibold hover:underline"
+                  >
                     Enroll Now
                   </button>
                 </p>
