@@ -1,95 +1,67 @@
 import { useEffect, useRef } from 'react';
 
 const outcomes = [
-  { icon: '💰', title: 'Freelancing Income', desc: 'Start landing paid clients within weeks of completing the program.' },
-  { icon: '🚀', title: 'Business Growth', desc: 'Run your own ads — scale your business without depending on agencies.' },
-  { icon: '🤝', title: 'Client Handling', desc: 'Communicate strategy, present reports, and manage client relationships confidently.' },
-  { icon: '🧲', title: 'Lead Generation Skills', desc: 'Generate qualified leads for any niche using paid + organic strategies.' },
-  { icon: '📈', title: 'Digital Career Growth', desc: 'Land roles in agencies, brands, or build your own marketing consulting practice.' },
+  { icon: '💰', title: 'Freelancing Income',      desc: 'Start landing paid clients within weeks of completing the program.' },
+  { icon: '🚀', title: 'Business Growth',          desc: 'Run your own ads — scale your business without depending on agencies.' },
+  { icon: '🤝', title: 'Client Handling',          desc: 'Communicate strategy, present reports, and manage client relationships confidently.' },
+  { icon: '🧲', title: 'Lead Generation Skills',   desc: 'Generate qualified leads for any niche using paid + organic strategies.' },
+  { icon: '📈', title: 'Digital Career Growth',    desc: 'Land roles in agencies, brands, or build your own marketing consulting practice.' },
 ];
 
 const timeline = [
-  { label: 'Before', desc: 'Starting point' },
-  { label: 'Wk 1', desc: 'Foundations' },
-  { label: 'Wk 2', desc: 'Meta Ads' },
-  { label: 'Wk 3', desc: 'Google Ads' },
-  { label: 'Wk 4', desc: 'AI Tools' },
-  { label: 'Month 2', desc: 'Live Projects' },
-  { label: 'Month 3', desc: 'Job Ready' },
+  { label: 'Before',  desc: 'Starting point', color: '#475569' },
+  { label: 'Wk 1',   desc: 'Foundations',    color: '#1D4ED8' },
+  { label: 'Wk 2',   desc: 'Meta Ads',       color: '#2563EB' },
+  { label: 'Wk 3',   desc: 'Google Ads',     color: '#3B82F6' },
+  { label: 'Wk 4',   desc: 'AI Tools',       color: '#60A5FA' },
+  { label: 'Month 2',desc: 'Live Projects',  color: '#93C5FD' },
+  { label: 'Month 3',desc: 'Job Ready 🎉',   color: '#BFDBFE' },
 ];
 
 export default function Outcomes() {
-  const sectionRef = useRef(null);
-
+  const ref = useRef(null);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) {
-      sectionRef.current.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    }
-    return () => observer.disconnect();
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.1 });
+    ref.current?.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    return () => io.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 md:px-8 bg-[#0F0A1E]">
+    <section ref={ref} className="py-24 px-4 md:px-8 bg-[#111827]">
       <div className="max-w-6xl mx-auto">
 
-        {/* Header */}
-        <div className="reveal text-center mb-14">
-          <span className="text-purple-400 text-sm font-semibold uppercase tracking-widest">After Completion</span>
-          <h2 className="text-3xl md:text-4xl font-black mt-3 mb-4 text-white">
-            What You'll{' '}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Achieve</span>
+        <div className="reveal text-center mb-16">
+          <span className="inline-block bg-blue-900/30 border border-blue-700/40 text-blue-400 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">After Completion</span>
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+            What You'll <span className="blue-gradient-text">Achieve</span>
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto">
-            From Day 1 you're building skills that open doors — here's what awaits you after the program.
-          </p>
+          <p className="text-slate-400 max-w-xl mx-auto">From Day 1 you're building skills that open doors — here's what awaits you after the program.</p>
         </div>
 
-        {/* Outcome cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
           {outcomes.map((o, i) => (
-            <div
-              key={i}
-              className="reveal bg-[#1A1030] border border-[#2D1F4E] p-6 rounded-2xl hover:border-purple-600/60 hover:-translate-y-1 transition-all duration-300"
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <div className="text-3xl mb-3">{o.icon}</div>
+            <div key={i} className="reveal card p-6 hover:-translate-y-1 transition-all duration-300 group" style={{ transitionDelay:`${i*70}ms` }}>
+              <div className="w-12 h-12 rounded-2xl bg-blue-900/30 border border-blue-800/40 flex items-center justify-center text-2xl mb-4 group-hover:border-blue-500/50 transition-colors">{o.icon}</div>
               <h3 className="font-bold text-white mb-2">{o.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{o.desc}</p>
+              <p className="text-slate-400 text-sm leading-relaxed">{o.desc}</p>
             </div>
           ))}
         </div>
 
-        {/* Progress Timeline */}
-        <div className="reveal bg-[#1A1030] border border-[#2D1F4E] p-8 rounded-3xl overflow-x-auto">
-          <div className="relative flex items-start justify-between min-w-[600px]">
-            {/* Connecting line */}
-            <div className="absolute top-5 left-5 right-5 h-0.5 bg-gradient-to-r from-purple-700 via-pink-500 to-purple-700 z-0"></div>
-
+        {/* Timeline */}
+        <div className="reveal card p-8 rounded-3xl overflow-x-auto">
+          <h3 className="text-white font-bold text-center mb-8 text-sm uppercase tracking-widest text-slate-400">Your Progress Journey</h3>
+          <div className="relative flex items-start justify-between min-w-[560px]">
+            <div className="absolute top-4 left-4 right-4 h-0.5 bg-gradient-to-r from-slate-700 via-blue-600 to-blue-300" />
             {timeline.map((t, i) => (
               <div key={i} className="flex flex-col items-center relative z-10 flex-1">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold border-2 ${
-                  i === 0
-                    ? 'bg-gray-800 border-gray-600 text-gray-400'
-                    : i === timeline.length - 1
-                    ? 'bg-gradient-to-br from-purple-600 to-pink-500 border-pink-400 text-white'
-                    : 'bg-[#1A1030] border-purple-600 text-purple-300'
-                }`}>
-                  {i === 0 ? '●' : i + 1}
+                <div className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold"
+                  style={{ background: i === 0 ? '#1E293B' : t.color, borderColor: t.color, color: i === 0 ? '#64748B' : '#fff' }}>
+                  {i === 0 ? '○' : i}
                 </div>
                 <div className="mt-2 text-center px-1">
                   <div className="text-white text-xs font-bold whitespace-nowrap">{t.label}</div>
-                  <div className="text-gray-500 text-xs mt-0.5 whitespace-nowrap">{t.desc}</div>
+                  <div className="text-slate-500 text-[10px] mt-0.5 whitespace-nowrap">{t.desc}</div>
                 </div>
               </div>
             ))}
