@@ -3,9 +3,8 @@ export default function Hero({ onEnroll }) {
     <section className="pt-20 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 lg:py-28 flex flex-col lg:flex-row items-center gap-16">
 
-        {/* Left */}
+        {/* ── Left ── */}
         <div className="flex-1 animate-fade-up">
-          {/* Top badge */}
           <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-1.5 text-sm text-blue-300 font-medium mb-6">
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             Live Batch Starting Soon — Tamil Medium
@@ -23,7 +22,7 @@ export default function Hero({ onEnroll }) {
             100% Tamil medium. Job-ready in 30 days.
           </p>
 
-          {/* Social proof row */}
+          {/* Social proof */}
           <div className="flex items-center gap-3 mb-8">
             <div className="flex -space-x-2">
               {['bg-blue-500','bg-purple-500','bg-pink-500','bg-green-500'].map((c,i) => (
@@ -40,7 +39,7 @@ export default function Hero({ onEnroll }) {
 
           <div className="flex flex-wrap gap-3 mb-10">
             <button onClick={onEnroll}
-              className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-3.5 rounded-xl text-base transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-400/40 hover:-translate-y-0.5">
+              className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-3.5 rounded-xl text-base transition-all shadow-lg shadow-blue-500/30 hover:-translate-y-0.5">
               Enroll Now — ₹7,499 ✦
             </button>
             <button onClick={() => document.querySelector('#curriculum')?.scrollIntoView({ behavior:'smooth' })}
@@ -49,7 +48,6 @@ export default function Hero({ onEnroll }) {
             </button>
           </div>
 
-          {/* Quick stats */}
           <div className="flex flex-wrap gap-6 text-sm text-slate-400">
             {[['✅','30 Live Sessions'],['✅','45+ Hours Content'],['✅','Lifetime Access'],['✅','Tamil Medium']].map(([icon,text],i) => (
               <span key={i} className="flex items-center gap-1.5">{icon} {text}</span>
@@ -57,63 +55,70 @@ export default function Hero({ onEnroll }) {
           </div>
         </div>
 
-        {/* Right — Course card mockup */}
+        {/* ── Right — Info card (no video/play button) ── */}
         <div className="flex-1 flex justify-center lg:justify-end w-full">
-          <div className="relative w-full max-w-sm">
-            {/* Main course card */}
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden animate-float">
-              {/* Course thumbnail */}
-              <div className="bg-gradient-to-br from-blue-600 to-blue-800 h-44 flex items-center justify-center relative">
-                <div className="text-center">
-                  <div className="text-5xl mb-2">📊</div>
-                  <div className="text-white font-bold text-sm">AI Digital Marketing</div>
-                  <div className="text-blue-200 text-xs">Complete Course</div>
-                </div>
-                {/* Play button */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 cursor-pointer hover:bg-white/30 transition-all">
-                    <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
+          <div className="relative w-full max-w-sm animate-float">
+
+            {/* Main card */}
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+              {/* Header */}
+              <div className="bg-gradient-to-br from-blue-600 to-blue-800 px-6 py-5">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <div className="text-white font-bold text-lg">AI Digital Marketing</div>
+                    <div className="text-blue-200 text-sm">Complete Course — Tamil Medium</div>
                   </div>
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl font-black text-white">ZD</div>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {['Meta Ads','Google Ads','AI Tools','Funnels'].map(t => (
+                    <span key={t} className="bg-white/20 text-white text-xs px-2.5 py-1 rounded-full font-medium">{t}</span>
+                  ))}
                 </div>
               </div>
 
               <div className="p-5">
-                <div className="flex items-center justify-between mb-3">
+                {/* Price */}
+                <div className="flex items-center justify-between mb-4">
                   <div>
-                    <div className="text-2xl font-black text-slate-900">₹7,499</div>
+                    <div className="text-3xl font-black text-slate-900">₹7,499</div>
                     <div className="text-slate-400 text-sm line-through">₹15,000</div>
                   </div>
-                  <span className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">50% OFF</span>
+                  <span className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1.5 rounded-full">Save ₹7,501</span>
                 </div>
 
-                {/* Progress bar */}
-                <div className="mb-3">
-                  <div className="flex justify-between text-xs text-slate-500 mb-1">
-                    <span>Seats filling fast</span>
-                    <span>73% full</span>
+                {/* Seat progress */}
+                <div className="mb-4">
+                  <div className="flex justify-between text-xs text-slate-500 mb-1.5">
+                    <span>🔥 Seats filling fast</span>
+                    <span className="font-semibold text-orange-500">73% full</span>
                   </div>
                   <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full w-[73%] bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
+                    <div className="h-full w-[73%] bg-gradient-to-r from-orange-400 to-orange-500 rounded-full" />
                   </div>
                 </div>
 
-                {/* Course meta */}
-                <div className="grid grid-cols-3 gap-2 mb-4 text-center">
-                  {[['30','Live Classes'],['45+','Hours'],['∞','Access']].map(([v,l]) => (
-                    <div key={l} className="bg-slate-50 rounded-lg py-2">
-                      <div className="text-sm font-bold text-slate-800">{v}</div>
-                      <div className="text-[10px] text-slate-500">{l}</div>
+                {/* Course highlights */}
+                <div className="space-y-2 mb-5">
+                  {[
+                    ['📆','30 Days Live Classes'],
+                    ['⏱️','45+ Hours Training'],
+                    ['🤖','AI Tools Integrated'],
+                    ['🏆','Industry Certification'],
+                    ['∞','Lifetime Access'],
+                  ].map(([icon, text]) => (
+                    <div key={text} className="flex items-center gap-2.5 text-sm text-slate-700">
+                      <span className="text-base">{icon}</span>
+                      <span>{text}</span>
                     </div>
                   ))}
                 </div>
 
                 <button onClick={onEnroll}
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-sm transition-colors">
-                  Enroll Now
+                  Enroll Now →
                 </button>
-                <p className="text-center text-xs text-slate-400 mt-2">🔒 Secure · Limited seats</p>
+                <p className="text-center text-xs text-slate-400 mt-2">🔒 Secure · Limited seats available</p>
               </div>
             </div>
 
@@ -132,6 +137,7 @@ export default function Hero({ onEnroll }) {
                 <div className="text-[10px] text-slate-500">After Training</div>
               </div>
             </div>
+
           </div>
         </div>
 

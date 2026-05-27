@@ -52,12 +52,12 @@ export default function Navbar({ onEnroll, onLogin, onLogout, user }) {
           ) : (
             <>
               <button onClick={onLogin}
-                className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors px-4 py-2">
-                Log in
+                className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors px-4 py-2 border border-slate-200 rounded-lg">
+                Log In
               </button>
               <button onClick={onEnroll}
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-sm">
-                Enroll Now →
+                Sign Up →
               </button>
             </>
           )}
