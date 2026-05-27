@@ -9,67 +9,68 @@ const links = [
 ];
 
 export default function Navbar({ onEnroll }) {
-  const [scrolled,  setScrolled]  = useState(false);
-  const [menuOpen,  setMenuOpen]  = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
+    const fn = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
   const nav = (href) => {
-    setMenuOpen(false);
+    setOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#0B1120]/95 backdrop-blur-md shadow-lg shadow-blue-900/20 border-b border-[#1E3A5F]/50' : 'bg-transparent'
+      scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100' : 'bg-white'
     }`}>
-      <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+        <Logo size={38} />
 
-        {/* Logo */}
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <Logo size={36} />
-        </button>
-
-        {/* Desktop nav */}
+        {/* Desktop */}
         <nav className="hidden md:flex items-center gap-8">
           {links.map(l => (
             <button key={l.label} onClick={() => nav(l.href)}
-              className="text-slate-400 hover:text-white text-sm font-medium transition-colors">
+              className="text-slate-600 hover:text-blue-600 text-sm font-medium transition-colors">
               {l.label}
             </button>
           ))}
-          <button onClick={onEnroll}
-            className="blue-btn text-sm font-bold px-5 py-2 rounded-full">
-            Join Now →
-          </button>
         </nav>
 
-        {/* Hamburger */}
-        <button className="md:hidden text-slate-400 hover:text-white"
-          onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
-          {menuOpen
+        <div className="hidden md:flex items-center gap-3">
+          <button onClick={onEnroll}
+            className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors px-4 py-2">
+            Log in
+          </button>
+          <button onClick={onEnroll}
+            className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-sm">
+            Enroll Now →
+          </button>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button className="md:hidden text-slate-600" onClick={() => setOpen(o => !o)}>
+          {open
             ? <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg>
             : <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/></svg>
           }
         </button>
       </div>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-[#111827] border-t border-[#1E3A5F] px-4 py-5 flex flex-col gap-4">
+      {open && (
+        <div className="md:hidden bg-white border-t border-slate-100 px-4 py-4 flex flex-col gap-3 shadow-lg">
           {links.map(l => (
             <button key={l.label} onClick={() => nav(l.href)}
-              className="text-slate-300 hover:text-white text-sm font-medium text-left">
+              className="text-slate-700 text-sm font-medium text-left py-1.5">
               {l.label}
             </button>
           ))}
-          <button onClick={() => { setMenuOpen(false); onEnroll(); }}
-            className="blue-btn text-sm font-bold px-5 py-2.5 rounded-full w-fit">
-            Join Now →
+          <button onClick={() => { setOpen(false); onEnroll(); }}
+            className="bg-blue-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg mt-2">
+            Enroll Now →
           </button>
         </div>
       )}

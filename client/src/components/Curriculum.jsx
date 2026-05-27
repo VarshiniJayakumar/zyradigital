@@ -1,49 +1,75 @@
 import { useState, useEffect, useRef } from 'react';
 
 const modules = [
-  { icon: '📣', title: 'Meta Ads',             desc: 'Facebook & Instagram campaigns, audience targeting, creatives, and scaling strategies.' },
-  { icon: '🔍', title: 'Google Ads',            desc: 'Search, Display & YouTube campaigns with keyword research, Quality Score, and bidding.' },
-  { icon: '🤖', title: 'AI Tools & Automation', desc: 'ChatGPT, Midjourney, Canva AI, and automation workflows to 10x your productivity.' },
-  { icon: '🔀', title: 'Funnel Strategy',        desc: 'Build high-converting funnels from awareness to purchase with psychological triggers.' },
-  { icon: '🧲', title: 'Lead Generation',        desc: 'WhatsApp funnels, lead magnets, landing pages, and low-cost lead gen tactics.' },
-  { icon: '🔁', title: 'Retargeting',            desc: 'Pixel setup, custom audiences, dynamic retargeting, and email remarketing strategies.' },
-  { icon: '📅', title: 'Campaign Planning',      desc: 'Full campaign lifecycle — briefs, budgets, timelines, A/B testing, and reporting.' },
-  { icon: '🕵️', title: 'Competitor Research',   desc: 'Spy tools, ad library analysis, and building strategies around competitor gaps.' },
+  { num:'01', icon:'📣', title:'Meta Ads',             hours:'6h', lessons:8,  desc:'Facebook & Instagram campaigns, audience targeting, creatives, and scaling strategies.' },
+  { num:'02', icon:'🔍', title:'Google Ads',            hours:'6h', lessons:9,  desc:'Search, Display & YouTube campaigns with keyword research, Quality Score, and bidding.' },
+  { num:'03', icon:'🤖', title:'AI Tools & Automation', hours:'5h', lessons:7,  desc:'ChatGPT, Midjourney, Canva AI, and automation workflows to 10x your productivity.' },
+  { num:'04', icon:'🔀', title:'Funnel Strategy',        hours:'4h', lessons:6,  desc:'Build high-converting funnels from awareness to purchase with psychological triggers.' },
+  { num:'05', icon:'🧲', title:'Lead Generation',        hours:'5h', lessons:7,  desc:'WhatsApp funnels, lead magnets, landing pages, and low-cost lead gen tactics.' },
+  { num:'06', icon:'🔁', title:'Retargeting',            hours:'4h', lessons:5,  desc:'Pixel setup, custom audiences, dynamic retargeting, and email remarketing strategies.' },
+  { num:'07', icon:'📅', title:'Campaign Planning',      hours:'5h', lessons:6,  desc:'Full campaign lifecycle — briefs, budgets, timelines, A/B testing, and reporting.' },
+  { num:'08', icon:'🕵️', title:'Competitor Research',   hours:'4h', lessons:5,  desc:'Spy tools, ad library analysis, and building strategies around competitor gaps.' },
 ];
 
 export default function Curriculum() {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(0);
   const ref = useRef(null);
   useEffect(() => {
-    const io = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.1 });
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    }), { threshold: 0.05 });
     ref.current?.querySelectorAll('.reveal').forEach(el => io.observe(el));
     return () => io.disconnect();
   }, []);
 
   return (
-    <section id="curriculum" ref={ref} className="py-24 px-4 md:px-8 bg-[#111827]">
-      <div className="max-w-6xl mx-auto">
+    <section id="curriculum" ref={ref} className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
 
-        <div className="reveal text-center mb-16">
-          <span className="inline-block bg-blue-900/30 border border-blue-700/40 text-blue-400 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Curriculum</span>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-            What You'll <span className="blue-gradient-text">Learn</span>
-          </h2>
-          <p className="text-slate-400 max-w-xl mx-auto">A complete, industry-aligned curriculum built for real execution — not just theory.</p>
+        <div className="reveal text-center mb-14">
+          <span className="inline-block bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 border border-blue-100">Course Curriculum</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">What You'll Learn</h2>
+          <p className="text-slate-500 max-w-xl mx-auto text-lg">8 comprehensive modules — 45+ hours of practical, industry-aligned content.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Summary bar */}
+        <div className="reveal bg-slate-900 rounded-2xl p-5 mb-8 flex flex-wrap gap-6 justify-center md:justify-between items-center">
+          {[['8','Modules'],['45+','Hours'],['53','Lessons'],['∞','Lifetime Access']].map(([v,l]) => (
+            <div key={l} className="text-center">
+              <div className="text-2xl font-black text-white">{v}</div>
+              <div className="text-slate-400 text-xs">{l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Accordion */}
+        <div className="reveal space-y-3">
           {modules.map((m, i) => (
-            <div key={i} className="reveal card p-5 cursor-pointer hover:-translate-y-1 transition-all duration-300 group" style={{ transitionDelay:`${i*50}ms` }}
-              onClick={() => setOpen(open === i ? null : i)}>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] font-bold text-blue-400 bg-blue-900/30 px-2.5 py-0.5 rounded-full">Module {i+1}</span>
-                <span className="text-slate-600 text-xs group-hover:text-blue-400 transition-colors">{open===i?'▲':'▼'}</span>
-              </div>
-              <div className="text-2xl mb-2">{m.icon}</div>
-              <h3 className="font-bold text-white text-sm">{m.title}</h3>
+            <div key={i} className={`border rounded-xl overflow-hidden transition-all duration-200 ${open === i ? 'border-blue-200 shadow-sm' : 'border-slate-200 hover:border-slate-300'}`}>
+              <button
+                className="w-full flex items-center gap-4 p-5 text-left bg-white hover:bg-slate-50 transition-colors"
+                onClick={() => setOpen(open === i ? -1 : i)}
+              >
+                <span className="text-xs font-bold text-slate-400 w-6 flex-shrink-0">{m.num}</span>
+                <span className="text-xl flex-shrink-0">{m.icon}</span>
+                <span className="flex-1 font-semibold text-slate-800">{m.title}</span>
+                <div className="hidden sm:flex items-center gap-4 text-xs text-slate-400 flex-shrink-0">
+                  <span>{m.lessons} lessons</span>
+                  <span>{m.hours}</span>
+                </div>
+                <svg className={`w-5 h-5 text-slate-400 flex-shrink-0 transition-transform ${open === i ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
               {open === i && (
-                <p className="text-slate-400 text-xs leading-relaxed mt-3 pt-3 border-t border-[#1E3A5F]">{m.desc}</p>
+                <div className="px-5 pb-5 bg-blue-50/50 border-t border-blue-100">
+                  <p className="text-slate-600 text-sm leading-relaxed pt-4">{m.desc}</p>
+                  <div className="flex gap-4 mt-3 text-xs text-blue-600 font-medium">
+                    <span>📹 {m.lessons} video lessons</span>
+                    <span>⏱ {m.hours} total</span>
+                    <span>📝 Practice assignments</span>
+                  </div>
+                </div>
               )}
             </div>
           ))}

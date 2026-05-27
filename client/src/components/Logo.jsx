@@ -1,12 +1,10 @@
-export default function Logo({ size = 40 }) {
+export default function Logo({ size = 36, dark = false }) {
   return (
-    <div className="flex items-center gap-2">
-      <img
-        src="/logo.png"
-        alt="ZyraDigital Logo"
-        style={{ height: size, width: 'auto' }}
-        className="object-contain"
-      />
-    </div>
+    <img
+      src="/logo.png"
+      alt="ZyraDigital"
+      style={{ height: size, width: 'auto' }}
+      className="object-contain"
+    />
   );
 }
