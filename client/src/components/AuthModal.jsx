@@ -92,7 +92,7 @@ export default function AuthModal({ onClose, defaultTab = 'login' }) {
         }
       }
     }
-    // Offline fallback
+    // Offline fallback — save locally only, no messy enrollment record
     const fakeUser = { name: sf.name, email: sf.email, id: Date.now() };
     localStorage.setItem('zd_user', JSON.stringify(fakeUser));
     setSs('success');
