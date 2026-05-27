@@ -1,4 +1,4 @@
-import { useReveal } from '../hooks/useReveal';
+import { useEffect, useRef } from 'react';
 
 const included = [
   '30 Days Live Online Classes',
@@ -13,35 +13,59 @@ const included = [
 ];
 
 export default function Pricing({ onEnroll }) {
-  const ref = useReveal();
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) {
+      sectionRef.current.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    }
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="pricing" className="py-20 px-4 md:px-8">
+    <section id="pricing" ref={sectionRef} className="py-20 px-4 md:px-8 bg-[#0F0A1E]">
       <div className="max-w-6xl mx-auto">
-        <div ref={ref} className="reveal text-center mb-14">
+
+        {/* Header */}
+        <div className="reveal text-center mb-14">
           <span className="text-purple-400 text-sm font-semibold uppercase tracking-widest">Enrollment</span>
-          <h2 className="text-3xl md:text-4xl font-black mt-3 mb-4">
-            Simple, Transparent <span className="gradient-text">Pricing</span>
+          <h2 className="text-3xl md:text-4xl font-black mt-3 mb-4 text-white">
+            Simple, Transparent{' '}
+            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Pricing</span>
           </h2>
           <p className="text-gray-400">One-time investment. Lifetime returns. No hidden costs.</p>
         </div>
 
+        {/* Pricing card */}
         <div className="reveal max-w-lg mx-auto">
-          <div className="card-bg rounded-3xl p-8 md:p-10 relative overflow-hidden shadow-2xl shadow-purple-900/40 animate-pulse-glow">
-            {/* Glow bg */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-pink-900/10 pointer-events-none"></div>
+          <div className="relative bg-[#1A1030] border border-[#2D1F4E] rounded-3xl p-8 md:p-10 overflow-hidden shadow-2xl shadow-purple-900/40 animate-pulse-glow">
+            {/* Background glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-pink-900/10 pointer-events-none rounded-3xl"></div>
 
-            {/* Prices */}
-            <div className="flex items-end gap-4 mb-2">
+            {/* Price */}
+            <div className="flex items-end gap-4 mb-3 relative">
               <span className="text-gray-500 text-2xl line-through">₹15,000</span>
-              <span className="text-5xl font-black gradient-text">₹7,499</span>
+              <span className="text-5xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">₹7,499</span>
             </div>
+
+            {/* Savings badge */}
             <div className="inline-flex items-center gap-2 bg-green-500/20 border border-green-500/30 rounded-full px-4 py-1.5 text-green-400 text-sm font-semibold mb-8">
               🎉 Save ₹7,501 — Limited Offer
             </div>
 
             {/* Features list */}
-            <ul className="space-y-3 mb-8">
+            <ul className="space-y-3 mb-8 relative">
               {included.map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-gray-300 text-sm">
                   <span className="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-500 flex items-center justify-center flex-shrink-0">
@@ -54,21 +78,22 @@ export default function Pricing({ onEnroll }) {
               ))}
             </ul>
 
-            {/* Installment */}
-            <div className="bg-purple-900/30 border border-purple-700/40 rounded-xl p-4 mb-6 text-sm text-purple-300">
-              💳 <strong>2 Installments Available</strong> — Pay ₹3,749 now &amp; ₹3,750 after Week 2.
+            {/* Installment note */}
+            <div className="bg-purple-900/30 border border-purple-700/40 rounded-xl p-4 mb-6 text-sm text-purple-300 relative">
+              💳 <strong className="text-white">2 Installments Available</strong> — Pay ₹3,749 now &amp; ₹3,750 after Week 2.
             </div>
 
-            {/* CTA */}
+            {/* Enroll button */}
             <button
               onClick={onEnroll}
-              className="gradient-btn w-full text-white font-bold py-4 rounded-2xl text-lg mb-3"
+              className="relative w-full bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-white font-bold py-4 rounded-2xl text-lg transition-all duration-300 mb-3"
             >
               Enroll Now — ₹7,499 ✦
             </button>
-            <p className="text-center text-gray-500 text-xs">🔒 Secure enrollment · Limited seats available</p>
+            <p className="text-center text-gray-500 text-xs relative">🔒 Secure enrollment · Limited seats available</p>
           </div>
         </div>
+
       </div>
     </section>
   );
