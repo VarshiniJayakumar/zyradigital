@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
@@ -11,52 +10,26 @@ import Pricing from './components/Pricing';
 import EnrollSection from './components/EnrollSection';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
-import AuthModal from './components/AuthModal';
-import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
-  const [authModal, setAuthModal] = useState(null);
-  const [user, setUser] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('zd_user')); } catch { return null; }
-  });
-
-  const handleAuthClose = (result) => {
-    if (result && typeof result === 'object') setUser(result);
-    setAuthModal(null);
+  const scrollToEnroll = () => {
+    document.querySelector('#enroll')?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem('zd_token');
-    localStorage.removeItem('zd_user');
-    setUser(null);
-  };
-
-  if (user?.role === 'admin') {
-    return <AdminDashboard onLogout={handleLogout} />;
-  }
 
   return (
     <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
-      <Navbar
-        onEnroll={() => setAuthModal('signup')}
-        onLogin={() => setAuthModal('login')}
-        onLogout={handleLogout}
-        user={user}
-      />
-      <Hero onEnroll={() => setAuthModal('signup')} />
+      <Navbar onEnroll={scrollToEnroll} />
+      <Hero onEnroll={scrollToEnroll} />
       <Stats />
       <Problem />
       <Curriculum />
       <Features />
       <Outcomes />
       <Mentor />
-      <Pricing onEnroll={() => setAuthModal('signup')} />
+      <Pricing onEnroll={scrollToEnroll} />
       <EnrollSection />
-      <CTA onEnroll={() => setAuthModal('signup')} />
+      <CTA onEnroll={scrollToEnroll} />
       <Footer />
-      {authModal !== null && (
-        <AuthModal defaultTab={authModal} onClose={handleAuthClose} />
-      )}
     </div>
   );
 }

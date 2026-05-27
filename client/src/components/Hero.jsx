@@ -40,7 +40,7 @@ export default function Hero({ onEnroll }) {
           <div className="flex flex-wrap gap-3 mb-10">
             <button onClick={onEnroll}
               className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-3.5 rounded-xl text-base transition-all shadow-lg shadow-blue-500/30 hover:-translate-y-0.5">
-              Enroll Now — ₹7,499 ✦
+              Secure My Seat — ₹7,499 ✦
             </button>
             <button onClick={() => document.querySelector('#curriculum')?.scrollIntoView({ behavior:'smooth' })}
               className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-8 py-3.5 rounded-xl text-base transition-all">
