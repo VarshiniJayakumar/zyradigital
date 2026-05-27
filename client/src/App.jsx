@@ -10,26 +10,19 @@ import Mentor from './components/Mentor';
 import Pricing from './components/Pricing';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
-import EnrollModal from './components/EnrollModal';
-import LoginModal from './components/LoginModal';
+import AuthModal from './components/AuthModal';
 
 export default function App() {
-  const [showEnroll, setShowEnroll] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  const [authModal, setAuthModal] = useState(null); // null | 'signup' | 'login'
   const [user, setUser] = useState(() => {
     try { return JSON.parse(localStorage.getItem('zd_user')); } catch { return null; }
   });
 
-  const handleLoginClose = (result) => {
-    if (result === 'enroll') {
-      setShowLogin(false);
-      setShowEnroll(true);
-    } else if (result && typeof result === 'object') {
+  const handleAuthClose = (result) => {
+    if (result && typeof result === 'object') {
       setUser(result);
-      setShowLogin(false);
-    } else {
-      setShowLogin(false);
     }
+    setAuthModal(null);
   };
 
   const handleLogout = () => {
@@ -41,23 +34,27 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
       <Navbar
-        onEnroll={() => setShowEnroll(true)}
-        onLogin={() => setShowLogin(true)}
+        onEnroll={() => setAuthModal('signup')}
+        onLogin={() => setAuthModal('login')}
         onLogout={handleLogout}
         user={user}
       />
-      <Hero onEnroll={() => setShowEnroll(true)} />
+      <Hero onEnroll={() => setAuthModal('signup')} />
       <Stats />
       <Problem />
       <Curriculum />
       <Features />
       <Outcomes />
       <Mentor />
-      <Pricing onEnroll={() => setShowEnroll(true)} />
-      <CTA onEnroll={() => setShowEnroll(true)} />
+      <Pricing onEnroll={() => setAuthModal('signup')} />
+      <CTA onEnroll={() => setAuthModal('signup')} />
       <Footer />
-      {showEnroll && <EnrollModal onClose={() => setShowEnroll(false)} />}
-      {showLogin  && <LoginModal  onClose={handleLoginClose} />}
+      {authModal && (
+        <AuthModal
+          defaultTab={authModal}
+          onClose={handleAuthClose}
+        />
+      )}
     </div>
   );
 }
