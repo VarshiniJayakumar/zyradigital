@@ -68,7 +68,6 @@ export default function EnrollSection() {
                 '✅ 30 Days Live Online Classes',
                 '✅ Lifetime Mentor Support',
                 '✅ Tamil Medium Training',
-                '✅ Industry Certification',
                 '✅ Real Client Strategies',
               ].map((item, i) => (
                 <div key={i} className="text-blue-100 text-sm">{item}</div>

@@ -104,7 +104,6 @@ export default function Hero({ onEnroll }) {
                     ['📆','30 Days Live Classes'],
                     ['⏱️','45+ Hours Training'],
                     ['🤖','AI Tools Integrated'],
-                    ['🏆','Industry Certification'],
                     ['∞','Lifetime Access'],
                   ].map(([icon, text]) => (
                     <div key={text} className="flex items-center gap-2.5 text-sm text-slate-700">
@@ -122,19 +121,12 @@ export default function Hero({ onEnroll }) {
               </div>
             </div>
 
-            {/* Floating badges */}
+            {/* Floating badge - certified only */}
             <div className="absolute -top-4 -left-4 bg-white rounded-xl shadow-lg px-3 py-2 flex items-center gap-2">
               <span className="text-lg">🏆</span>
               <div>
                 <div className="text-xs font-bold text-slate-800">Certified</div>
-                <div className="text-[10px] text-slate-500">Industry Ready</div>
-              </div>
-            </div>
-            <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg px-3 py-2 flex items-center gap-2">
-              <span className="text-lg">📈</span>
-              <div>
-                <div className="text-xs font-bold text-green-600">+84% ROAS</div>
-                <div className="text-[10px] text-slate-500">After Training</div>
+                <div className="text-[10px] text-slate-500">Tamil Medium</div>
               </div>
             </div>
 
