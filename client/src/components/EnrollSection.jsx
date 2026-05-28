@@ -78,7 +78,6 @@ export default function EnrollSection() {
               <div className="text-white/60 text-sm line-through">₹15,000</div>
               <div className="text-4xl font-black text-white">₹7,499</div>
               <div className="text-blue-200 text-xs mt-1">One-time · No hidden costs</div>
-              <div className="text-blue-200 text-xs mt-0.5">💳 EMI: ₹3,749 now + ₹3,750 after Week 2</div>
             </div>
           </div>
 

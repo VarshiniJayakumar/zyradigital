@@ -54,11 +54,7 @@ export default function Pricing({ onEnroll }) {
                   </button>
                   <p className="text-center text-xs text-slate-400 mb-6">🔒 Secure · Limited seats</p>
 
-                  {/* Installment */}
-                  <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 text-sm">
-                    <div className="font-bold text-blue-700 mb-1">💳 EMI Available</div>
-                    <div className="text-blue-600 text-xs">Pay ₹3,749 now &amp; ₹3,750 after Week 2</div>
-                  </div>
+                  {/* Installment removed */}
                 </div>
 
                 {/* Right — features */}

@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-8 pb-8 border-b border-slate-800">
           <div>
-            <Logo size={40} />
+            <Logo size={40} dark={true} />
             <p className="text-slate-500 text-sm mt-3 max-w-xs">
               AI Integrated Digital Marketing Academy — Tamil Medium, Practical Training.
             </p>

@@ -15,7 +15,7 @@ const timeline = [
   { label:'Week 3',   desc:'Google Ads',      active:true  },
   { label:'Week 4',   desc:'AI Tools',        active:true  },
   { label:'Month 2',  desc:'Live Projects',   active:true  },
-  { label:'Month 3',  desc:'Job Ready 🎉',    active:true  },
+  { label:'Month 3',  desc:'Skilled Marketer', active:true  },
 ];
 
 const tagColors = { Income:'bg-green-100 text-green-700', Growth:'bg-blue-100 text-blue-700', Skills:'bg-purple-100 text-purple-700', Career:'bg-orange-100 text-orange-700' };

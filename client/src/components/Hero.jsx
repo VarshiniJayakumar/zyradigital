@@ -19,7 +19,7 @@ export default function Hero({ onEnroll }) {
 
           <p className="text-slate-300 text-lg leading-relaxed mb-8 max-w-xl">
             India's most practical digital marketing course — Meta Ads, Google Ads, AI Tools & real client strategies.
-            100% Tamil medium. Job-ready in 30 days.
+            100% Tamil medium. Practical training in 30 days.
           </p>
 
           {/* Social proof */}
