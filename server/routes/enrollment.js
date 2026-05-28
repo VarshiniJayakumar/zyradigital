@@ -83,4 +83,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+// DELETE /api/enrollment/clear
+router.delete('/clear', async (req, res) => {
+  if (req.body.secret !== 'zyradigital_clear_2025')
+    return res.status(403).json({ message: 'Forbidden' });
+  try {
+    const result = await Enrollment.deleteMany({});
+    res.json({ message: 'Cleared', deleted: result.deletedCount });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;
