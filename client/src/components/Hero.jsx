@@ -55,11 +55,11 @@ export default function Hero({ onEnroll }) {
           </div>
         </div>
 
-        {/* ── Right — Info card (no video/play button) ── */}
+        {/* ── Right — Course card ── */}
         <div className="flex-1 flex justify-center lg:justify-end w-full">
-          <div className="relative w-full max-w-sm animate-float">
+          <div className="w-full max-w-sm animate-float">
 
-            {/* Main card */}
+            {/* Main card — no overlapping badges */}
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
               {/* Header */}
               <div className="bg-gradient-to-br from-blue-600 to-blue-800 px-6 py-5">
@@ -121,12 +121,21 @@ export default function Hero({ onEnroll }) {
               </div>
             </div>
 
-            {/* Floating badge - certified only */}
-            <div className="absolute -top-4 -left-4 bg-white rounded-xl shadow-lg px-3 py-2 flex items-center gap-2">
-              <span className="text-lg">🏆</span>
-              <div>
-                <div className="text-xs font-bold text-slate-800">Certified</div>
-                <div className="text-[10px] text-slate-500">Tamil Medium</div>
+            {/* Badges BELOW the card — no overlap */}
+            <div className="flex gap-3 mt-4">
+              <div className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 flex items-center gap-2">
+                <span className="text-lg">🏆</span>
+                <div>
+                  <div className="text-white text-xs font-bold">Certified</div>
+                  <div className="text-blue-300 text-[10px]">Tamil Medium</div>
+                </div>
+              </div>
+              <div className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 flex items-center gap-2">
+                <span className="text-lg">🎓</span>
+                <div>
+                  <div className="text-white text-xs font-bold">Live Training</div>
+                  <div className="text-blue-300 text-[10px]">30 Sessions</div>
+                </div>
               </div>
             </div>
 
